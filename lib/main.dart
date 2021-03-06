@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  return runApp(
-    MaterialApp(
+  return runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Eu respondo"),
+          centerTitle: true,
+          title: Text(
+            "Ask me anything",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+          ),
         ),
+        body: BallPage(),
+        backgroundColor: Colors.blue,
       ),
-    ),
-  );
+    );
+  }
 }
 
 class BallPage extends StatefulWidget {
@@ -22,6 +34,23 @@ class _BallPageState extends State<BallPage> {
   int ballRandomNumber = 1;
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Center(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  ballRandomNumber = Random().nextInt(5) + 1;
+                  print("Ball updated");
+                });
+              },
+              child: Image.asset('images/ball$ballRandomNumber.png'),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
